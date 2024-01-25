@@ -5,4 +5,5 @@ public enum ChessPiece
     Bishop,
     Knight,
     Queen,
+    King,
 }

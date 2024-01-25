@@ -1,4 +1,3 @@
-using System.Drawing;
 using Shouldly;
 
 namespace CaptainCoder.ChessPuzzler.Logic.Tests;

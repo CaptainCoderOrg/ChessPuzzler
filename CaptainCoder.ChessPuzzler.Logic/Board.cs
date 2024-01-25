@@ -28,7 +28,7 @@ public class Board
     public List<int> Ranks()
     {
         List<int> ranks = new();
-        for (int rank = 1; rank <= Size; rank++)
+        for (int rank = Size; rank >= 1; rank--)
         {
             ranks.Add(rank);
         }
