@@ -15,7 +15,7 @@ public class SimpleBoardWriter
                 if (board.IsOccupied(rank, file))
                 {
                     ChessPiece piece = board.GetPiece(rank, file);
-                    Console.Write($"{piece.ToString()[0]} ");
+                    Console.Write($"{(char)piece} ");
                 }
                 else
                 {

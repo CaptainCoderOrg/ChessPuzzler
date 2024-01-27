@@ -110,5 +110,21 @@ public class Board
     /// <param name="rank">The rank to check.</param>
     /// <param name="file">The file to check.</param>
     /// <returns>True if the position is within bounds; otherwise, false.</returns>
-    private bool InBounds(int rank, char file) => rank >= 1 && rank <= Size && (file - 'a') >= 0 && (file - 'a') < Size;
+    public bool InBounds(int rank, char file) => rank >= 1 && rank <= Size && (file - 'a') >= 0 && (file - 'a') < Size;
+
+    public Board Copy()
+    {
+        Board copy = new Board(Size);
+        foreach (int rank in Ranks())
+        {
+            foreach (char file in Files())
+            {
+                if (IsOccupied(rank, file))
+                {
+                    copy.SetPiece(rank, file, GetPiece(rank, file));
+                }
+            }
+        }
+        return copy;
+    }
 }

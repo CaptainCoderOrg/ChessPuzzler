@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Text;
 
+Console.OutputEncoding = Encoding.UTF8;
 TextWriter orig = Console.Out;
 // TextWriter textWriter = new StringWriter();
 // Console.SetOut(textWriter);

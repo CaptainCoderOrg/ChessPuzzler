@@ -1,9 +1,9 @@
-public enum ChessPiece
+public enum ChessPiece 
 {
-    Pawn,
-    Rook,
-    Bishop,
-    Knight,
-    Queen,
-    King,
+    Pawn = '♙',
+    Rook = '♖',
+    Bishop = '♗',
+    Knight = '♘',
+    Queen = '♕',
+    King = '♔',
 }
