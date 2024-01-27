@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 public class Puzzle
 {
     public Board Board { get; private set; }
@@ -123,20 +125,13 @@ public class Puzzle
 
     private List<Position> MovesInDir(int rank, char file, int dRank, int dFile)
     {
-        List<Position> positions = new ();
-        rank += dRank;
-        file = (char)(file + dFile);
-        while (Board.InBounds(rank, file))
+        while (dRank != 0 || dFile != 0)
         {
-            if (Board.IsOccupied(rank, file)) { 
-                positions.Add(new Position(rank, file));
-                break; 
-            }
-            positions.Add(new Position(rank, file));
             rank += dRank;
             file = (char)(file + dFile);
+            if (!Board.InBounds(rank, file)) { return []; }
+            if (Board.IsOccupied(rank, file)) { return [ new Position(rank, file)]; }
         }
-        
-        return positions;
+        return [];
     }
 }
