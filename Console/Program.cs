@@ -4,13 +4,15 @@ using System.Text;
 Console.Clear();
 Console.OutputEncoding = Encoding.UTF8;
 
-GameState gameState = new GameState(1);
+GameController gameState = new GameController(1);
+GameWriter gameWriter = new GameWriter{Left = 0, Top = 0};
 
+Console.CursorVisible = false;
 ConsoleKeyInfo info;
 do
 {
-    gameState.WriteBoard(1, 1);
-    info = Console.ReadKey();
+    gameWriter.Write(gameState);
+    info = Console.ReadKey(true);
     gameState.HandleInput(info);
 } while(info.Key != ConsoleKey.Escape);
 
