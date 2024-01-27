@@ -1,6 +1,7 @@
 public class GameController
 {
     public HashSet<int> SolvedPuzzles = new();
+    public Dictionary<int, SolverResult> CheatedPuzzles = new();
     const int MaxPuzzleId = 20;
     public Puzzle CurrentPuzzle { get; set; }
     public int PuzzleId { get; private set; }
@@ -39,6 +40,10 @@ public class GameController
     {
         UpdateCursor(userInput);
         HandleMove(userInput);
+        if (userInput.KeyChar == '!')
+        {
+            Cheat();
+        }
         Action handler = userInput.Key switch
         {
             ConsoleKey.R => CurrentPuzzle.Reset,
@@ -47,6 +52,14 @@ public class GameController
             _ => () => { },
         };
         handler.Invoke();
+    }
+
+    private void Cheat()
+    {
+        DumbSolver solver = new DumbSolver();
+        SolverResult result = solver.Solve(CurrentPuzzle);
+        CurrentPuzzle.Reset();  
+        CheatedPuzzles[PuzzleId] = result; 
     }
 
     private void SwitchPuzzle(int dir)

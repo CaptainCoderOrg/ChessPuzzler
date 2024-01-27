@@ -9,7 +9,7 @@ public class GameWriter
 
     public void Write(GameController controller)
     {
-        if (_height != Console.WindowHeight || _width != Console.WindowWidth )
+        if (_height != Console.WindowHeight || _width != Console.WindowWidth)
         {
             Console.Clear();
             _width = Console.WindowWidth;
@@ -26,10 +26,15 @@ public class GameWriter
         _left = Left + (controller.CurrentPuzzle.Board.Size*2) + 4;
         Console.SetCursorPosition(_left, _top);
         Console.Write($"Puzzle #{controller.PuzzleId} - ");
-        if (controller.SolvedPuzzles.Contains(controller.PuzzleId))
+        if (controller.CheatedPuzzles.ContainsKey(controller.PuzzleId))
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Cheated");
+        }
+        else if (controller.SolvedPuzzles.Contains(controller.PuzzleId))
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Solved  ");
+            Console.Write("Solved");
         }
         else
         {
@@ -37,13 +42,27 @@ public class GameWriter
             Console.Write("Unsolved");
         }
         Console.ResetColor();
+        Console.Write("".PadLeft(10));
         _top++;
         WriteLine("W/A/S/D - Move Cursor");
         WriteLine("Space - Select/Move");
         WriteLine("N - Next Puzzle");
         WriteLine("P - Previous Puzzle");
         WriteLine("R - Reset Puzzle");
+        WriteLine("! - Cheat");
         WriteLine("ESC - Quit");
+        if (controller.CheatedPuzzles.TryGetValue(controller.PuzzleId, out SolverResult? solution))
+        {
+            WriteLine($"Difficulty: {solution.Difficulty} | ");
+            foreach ((Position from, Position to) in solution.Moves)
+            {
+                Console.Write($"{from.File}{from.Rank}-{to.File}{to.Rank} ");
+            }
+        }
+        else
+        {
+            Console.Write("".PadLeft(_width*2, ' '));
+        }
 
     }
 
