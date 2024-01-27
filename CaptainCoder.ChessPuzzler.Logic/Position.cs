@@ -1,1 +1,1 @@
-public record Position(int Rank, char File);
+public readonly record struct Position(int Rank, char File);
