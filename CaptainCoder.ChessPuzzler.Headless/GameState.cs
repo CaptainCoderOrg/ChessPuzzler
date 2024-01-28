@@ -1,12 +1,12 @@
 public class GameState
 {
+    const int MaxPuzzleId = 80;
     public HashSet<int> SolvedPuzzles = new();
     public Dictionary<int, SolverResult> CheatedPuzzles = new();
-    const int MaxPuzzleId = 80;
     public Puzzle CurrentPuzzle { get; private set; }
     public int PuzzleId { get; private set; }
-    private Position _cursor;
     public Position? SelectedPosition { get; private set; }
+    private Position _cursor;
     public Position CursorPosition
     {
         get => _cursor;

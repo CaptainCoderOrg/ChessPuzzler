@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CaptainCoder.ChessPuzzler.Logic\CaptainCoder.ChessPuzzler.Logic.csproj" />
+    <ProjectReference Include="..\CaptainCoder.ChessPuzzler.Headless\CaptainCoder.ChessPuzzler.Headless.csproj" />
   </ItemGroup>
 
 </Project>
