@@ -53,7 +53,7 @@ public class GameWriter
         WriteLine("ESC - Quit");
         if (controller.CheatedPuzzles.TryGetValue(controller.PuzzleId, out SolverResult? solution))
         {
-            WriteLine($"Difficulty: {solution.Difficulty} | ");
+            WriteLine($"Difficulty: {solution.Attempts} | ");
             foreach ((Position from, Position to) in solution.Moves)
             {
                 Console.Write($"{from.File}{from.Rank}-{to.File}{to.Rank} ");

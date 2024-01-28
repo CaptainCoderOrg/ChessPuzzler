@@ -1,5 +1,6 @@
-public class DumbSolver
+public class MonteCarloSolver
 {
+    private static Random s_random = new Random();
     public SolverResult Solve(Puzzle puzzle, int maxAttempts = 100000)
     {
         puzzle.Reset();
@@ -11,8 +12,7 @@ public class DumbSolver
             {
                 var possibleMoves = AllMoves(puzzle);
                 if (possibleMoves.Length == 0) { break; }
-                Random.Shared.Shuffle(possibleMoves);
-                var move = possibleMoves[0];
+                var move = possibleMoves[s_random.Next(0, possibleMoves.Length)];
                 moves.Add(move);
                 puzzle.Move(move.From, move.To);
 
@@ -45,4 +45,4 @@ public class DumbSolver
     }
 }
 
-public record SolverResult(int Difficulty, List<(Position, Position)> Moves);
+public record SolverResult(int Attempts, List<(Position, Position)> Moves);

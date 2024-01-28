@@ -2,7 +2,7 @@ public class GameController
 {
     public HashSet<int> SolvedPuzzles = new();
     public Dictionary<int, SolverResult> CheatedPuzzles = new();
-    const int MaxPuzzleId = 20;
+    const int MaxPuzzleId = 80;
     public Puzzle CurrentPuzzle { get; set; }
     public int PuzzleId { get; private set; }
     private Position _cursor;
@@ -56,10 +56,20 @@ public class GameController
 
     private void Cheat()
     {
-        DumbSolver solver = new DumbSolver();
-        SolverResult result = solver.Solve(CurrentPuzzle);
+        MonteCarloSolver solver = new MonteCarloSolver();
+        SolverResult result;
+        List<(Position, Position)> moves = [];
+        int difficulty = 0;
+        int trials = 1;
+        for (int trial = 0; trial < trials; trial++)
+        {
+            
+            result = solver.Solve(CurrentPuzzle);
+            difficulty += result.Attempts;
+            moves = result.Moves;
+        }
+        CheatedPuzzles[PuzzleId] = new SolverResult(difficulty/trials, moves); 
         CurrentPuzzle.Reset();  
-        CheatedPuzzles[PuzzleId] = result; 
     }
 
     private void SwitchPuzzle(int dir)
