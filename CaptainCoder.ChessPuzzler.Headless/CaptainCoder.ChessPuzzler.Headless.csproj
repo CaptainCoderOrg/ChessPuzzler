@@ -2,18 +2,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CaptainCoder.ChessPuzzler.Logic\CaptainCoder.ChessPuzzler.Logic.csproj" />
-    <ProjectReference Include="..\CaptainCoder.ChessPuzzler.Headless\CaptainCoder.ChessPuzzler.Headless.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Spectre.Console" Version="0.48.0" />
   </ItemGroup>
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <LangVersion>12</LangVersion>
   </PropertyGroup>
 
 </Project>

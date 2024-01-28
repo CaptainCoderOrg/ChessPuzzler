@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptainCoder.ChessPuzzler.L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{55189C35-9F22-4C62-8918-7C6C5C77B66F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raylib", "Raylib\Raylib.csproj", "{FC856FF7-F1C8-4398-8707-786AFBE9BE59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptainCoder.ChessPuzzler.Headless", "CaptainCoder.ChessPuzzler.Headless\CaptainCoder.ChessPuzzler.Headless.csproj", "{06A2553D-2A6D-497E-86C7-5952FE6AFF96}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{55189C35-9F22-4C62-8918-7C6C5C77B66F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55189C35-9F22-4C62-8918-7C6C5C77B66F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55189C35-9F22-4C62-8918-7C6C5C77B66F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC856FF7-F1C8-4398-8707-786AFBE9BE59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC856FF7-F1C8-4398-8707-786AFBE9BE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC856FF7-F1C8-4398-8707-786AFBE9BE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC856FF7-F1C8-4398-8707-786AFBE9BE59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06A2553D-2A6D-497E-86C7-5952FE6AFF96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A2553D-2A6D-497E-86C7-5952FE6AFF96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A2553D-2A6D-497E-86C7-5952FE6AFF96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A2553D-2A6D-497E-86C7-5952FE6AFF96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

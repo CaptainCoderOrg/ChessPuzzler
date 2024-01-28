@@ -18,12 +18,13 @@ public class GameController
             ConsoleKey.N => () => _gameState.NextPuzzle(1),
             ConsoleKey.P => () => _gameState.NextPuzzle(-1),
             ConsoleKey.Spacebar => () => _gameState.HandleSelect(),
-            _ => () => { },
+            _ => () => { }
+            ,
         };
         handler.Invoke();
     }
 
-        private void UpdateCursor(ConsoleKeyInfo userInput)
+    private void UpdateCursor(ConsoleKeyInfo userInput)
     {
         (int rank, char file) = _gameState.CursorPosition;
         (int newRank, int newFile) = userInput.Key switch
@@ -37,6 +38,6 @@ public class GameController
         _gameState.CursorPosition = new Position(newRank, (char)newFile);
     }
 
-    
+
 
 }
