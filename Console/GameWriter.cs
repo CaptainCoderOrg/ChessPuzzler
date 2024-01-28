@@ -7,7 +7,7 @@ public class GameWriter
     private int _top;
     private int _left;
 
-    public void Write(GameController controller)
+    public void Write(GameState controller)
     {
         if (_height != Console.WindowHeight || _width != Console.WindowWidth)
         {
@@ -20,7 +20,7 @@ public class GameWriter
         
     }
 
-    private void WriteInfo(GameController controller)
+    private void WriteInfo(GameState controller)
     {
         _top = Top;
         _left = Left + (controller.CurrentPuzzle.Board.Size*2) + 4;
@@ -79,7 +79,7 @@ public class GameWriter
         Console.Write(line);
     }
 
-    private void WriteBoard(GameController controller)
+    private void WriteBoard(GameState controller)
     {
         _left = Left;
         _top = Top;
@@ -108,7 +108,7 @@ public class GameWriter
         }
     }
 
-    private ConsoleColor TileColor(Position position, GameController controller)
+    private ConsoleColor TileColor(Position position, GameState controller)
     {
         if (controller.SelectedPosition.HasValue && controller.SelectedPosition == position)
         {
