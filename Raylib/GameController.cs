@@ -31,10 +31,10 @@ public class GameController
         }
     }
 
-void MoveCursor(int dRank, int dFile)
-{
-    (int rank, char file) = _gameState.CursorPosition;
-    _gameState.CursorPosition = new Position(rank + dRank, (char)(file + dFile));
-}
+    void MoveCursor(int dRank, int dFile)
+    {
+        (int rank, char file) = _gameState.CursorPosition;
+        _gameState.CursorPosition = new Position(rank + dRank, (char)(file + dFile));
+    }
 
 }

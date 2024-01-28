@@ -1,6 +1,6 @@
 using Raylib_cs;
 
-public class GameRenderer
+public class BoardRenderer
 {
     public const int CellSize = 52;
     public const int PieceSize = 42;
@@ -10,7 +10,12 @@ public class GameRenderer
     public static readonly Color CursorColor = Color.Yellow;
     public static readonly Color SelectedColor = Color.Orange;
     private static Dictionary<ChessPiece, Texture2D> _pieces = null!;
-    public GameRenderer() { LoadTextures(); }
+    public BoardRenderer() { LoadTextures(); }
+
+    public int BoardSize(GameState gameState)
+    {
+        return gameState.CurrentPuzzle.Board.Size * CellSize;
+    }
     
     public void DrawBoard(int x, int y, GameState gameState)
     {
