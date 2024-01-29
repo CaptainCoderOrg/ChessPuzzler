@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using ChessPuzzler;
 
 Console.Clear();
 Console.OutputEncoding = Encoding.UTF8;

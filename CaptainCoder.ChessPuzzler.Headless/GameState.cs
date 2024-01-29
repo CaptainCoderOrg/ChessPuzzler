@@ -1,3 +1,4 @@
+namespace ChessPuzzler;
 public class GameState
 {
     const int MaxPuzzleId = 80;
@@ -5,6 +6,7 @@ public class GameState
     public Dictionary<int, SolverResult> CheatedPuzzles = new();
     public Puzzle CurrentPuzzle { get; private set; }
     public int PuzzleId { get; private set; }
+    public IPuzzleLibrary PuzzleLibrary { get; private set; }
     public Position? SelectedPosition { get; private set; }
     private Position _cursor;
     public Position CursorPosition
@@ -20,20 +22,14 @@ public class GameState
         }
     }
 
-    public GameState(int id)
+    public GameState(int id, IPuzzleLibrary? puzzleLibrary = null)
     {
+        PuzzleLibrary = puzzleLibrary ?? new FileSystemPuzzleLibrary("puzzles/");
         PuzzleId = id;
-        CurrentPuzzle = LoadPuzzle(id);
+        CurrentPuzzle = PuzzleLibrary.LoadPuzzle(id);
         CursorPosition = new Position(CurrentPuzzle.Board.Size, 'a');
     }
 
-    private static Puzzle LoadPuzzle(int id) => LoadPuzzle($"puzzles/{id.ToString().PadLeft(2, '0')}.txt");
-
-    private static Puzzle LoadPuzzle(string filename)
-    {
-        string[] boardData = File.ReadAllLines(filename);
-        return new Puzzle(BoardReader.Read(boardData));
-    }    
     public void Cheat()
     {
         MonteCarloSolver solver = new MonteCarloSolver();
@@ -55,7 +51,7 @@ public class GameState
     public void NextPuzzle(int dir)
     {
         PuzzleId = Math.Clamp(PuzzleId + dir, 1, MaxPuzzleId);
-        CurrentPuzzle = LoadPuzzle(PuzzleId);
+        CurrentPuzzle = PuzzleLibrary.LoadPuzzle(PuzzleId);
     }
 
     public void HandleSelect()

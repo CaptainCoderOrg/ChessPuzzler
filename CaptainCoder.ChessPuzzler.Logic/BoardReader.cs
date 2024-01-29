@@ -1,3 +1,4 @@
+namespace ChessPuzzler;
 public static class BoardReader
 {
     public static Board Read(string[] ranks)

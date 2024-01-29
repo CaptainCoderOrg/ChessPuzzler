@@ -1,3 +1,4 @@
+namespace ChessPuzzler;
 /// <summary>
 /// Represents a chess board with dynamic size.
 /// </summary>

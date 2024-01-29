@@ -1,3 +1,4 @@
+namespace ChessPuzzler;
 public class GameWriter
 {
     private int _width = 0;

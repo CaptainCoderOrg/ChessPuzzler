@@ -1,3 +1,4 @@
+namespace ChessPuzzler;
 public class MonteCarloSolver
 {
     private static Random s_random = new Random();

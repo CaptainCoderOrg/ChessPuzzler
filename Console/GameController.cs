@@ -1,3 +1,4 @@
+namespace ChessPuzzler;
 public class GameController
 {
     private GameState _gameState;

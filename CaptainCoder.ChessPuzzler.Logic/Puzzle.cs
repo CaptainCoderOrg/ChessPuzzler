@@ -1,3 +1,4 @@
+namespace ChessPuzzler;
 public class Puzzle
 {
     public Board Board { get; private set; }

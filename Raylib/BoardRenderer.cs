@@ -1,3 +1,4 @@
+using ChessPuzzler;
 using Raylib_cs;
 
 public class BoardRenderer

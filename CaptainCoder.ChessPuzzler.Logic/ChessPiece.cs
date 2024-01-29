@@ -1,3 +1,4 @@
+namespace ChessPuzzler;
 public enum ChessPiece 
 {
     Pawn = '♙',

@@ -1,5 +1,5 @@
 using Shouldly;
-
+using ChessPuzzler;
 namespace CaptainCoder.ChessPuzzler.Logic.Tests;
 
 public class BoardTests

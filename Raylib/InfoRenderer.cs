@@ -1,4 +1,5 @@
 using System.Numerics;
+using ChessPuzzler;
 using Raylib_cs;
 
 public class InfoRenderer
