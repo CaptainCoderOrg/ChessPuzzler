@@ -18,7 +18,7 @@ MonoBehaviour:
   - Piece: 9814
     Sprite: {fileID: 21300000, guid: b75842ca6fb7f9348853b2d37bf92dd7, type: 3}
   - Piece: 9815
-    Sprite: {fileID: 0}
+    Sprite: {fileID: 21300000, guid: 0feecd93acd1e1648815dd20bb10b658, type: 3}
   - Piece: 9816
     Sprite: {fileID: 21300000, guid: 83e22689c488273469ebe1241e4130cd, type: 3}
   - Piece: 9813

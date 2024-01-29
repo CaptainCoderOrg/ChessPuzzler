@@ -39,13 +39,13 @@ public class GameState
         int trials = 1;
         for (int trial = 0; trial < trials; trial++)
         {
-            
+
             result = solver.Solve(CurrentPuzzle);
             difficulty += result.Attempts;
             moves = result.Moves;
         }
-        CheatedPuzzles[PuzzleId] = new SolverResult(difficulty/trials, moves); 
-        CurrentPuzzle.Reset();  
+        CheatedPuzzles[PuzzleId] = new SolverResult(difficulty / trials, moves);
+        CurrentPuzzle.Reset();
     }
 
     public void NextPuzzle(int dir)
@@ -67,7 +67,10 @@ public class GameState
         }
         else
         {
-            SelectedPosition = CursorPosition;
+            if (CurrentPuzzle.Board.IsOccupied(CursorPosition.Rank, CursorPosition.File))
+            {
+                SelectedPosition = CursorPosition;
+            }
         }
     }
 

@@ -4,22 +4,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
 public class GridButton : MonoBehaviour
 {
     public int Rank;
     public char File;
     [field: SerializeField]
-    public Button Button { get; private set; }
+    public Button Button { get; set; }
     [field: SerializeField]
-    public Image Image { get; set; }
+    public Image PieceImage { get; set; }
+    [field: SerializeField]
+    public Image GridImage { get; set; }
     [field: SerializeField]
     public TextMeshProUGUI Text { get; set; }
 
-    private void Awake()
-    {
-        Button = GetComponent<Button>();
-        Image = GetComponent<Image>();
-        Text = GetComponentInChildren<TextMeshProUGUI>();
-    }
 }
