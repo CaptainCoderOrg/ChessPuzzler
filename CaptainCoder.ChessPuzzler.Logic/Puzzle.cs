@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 public class Puzzle
 {
     public Board Board { get; private set; }
