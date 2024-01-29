@@ -19,6 +19,62 @@ public class InfoRenderer
         _font = Raylib.LoadFont("assets/fonts/romulus.png");
     }
 
+    private Vector2 RenderControls(int x, int y, GameState gameState)
+    {
+        _leftReturn = x;
+        _left = x;
+        float rightOrig = _right;
+        _right = x;
+        WriteLine("WASD");
+        WriteLine("Space");
+        WriteLine("N");
+        WriteLine("P");
+        WriteLine("R");
+        WriteLine("Y");
+        WriteLine("ESC");
+        float newRight = _right;
+        _right = rightOrig;
+        return new Vector2(newRight - x, _top - _startTop);
+    }
+
+    public Vector2 RenderInfo(int x, int y, GameState gameState)
+    {
+        _startTop = y;
+        _leftReturn = x;
+        _top = y;
+        _right = x;
+        _left = x;
+        DrawTitle(x, y, gameState);
+        Vector2 controlTextSize = RenderControls(x, y, gameState);
+
+        _startTop = y;
+        _top = y;
+        _leftReturn = x + controlTextSize.X + Spacing;
+        WriteLine(string.Empty);
+        WriteLine(" Move");
+        WriteLine(" Select");
+        WriteLine(" Next");
+        WriteLine(" Previous");
+        WriteLine(" Reset");
+        WriteLine(" Cheat");
+        WriteLine(" Quit");
+        if (gameState.CheatedPuzzles.TryGetValue(gameState.PuzzleId, out SolverResult? solution))
+        {
+            WriteLine(string.Empty);
+            _left = 10;
+            _leftReturn = 10;
+            Write($"Difficulty: {solution.Attempts} | ");
+            foreach ((Position from, Position to) in solution.Moves)
+            {
+                Write($"{from.File}{from.Rank}-{to.File}{to.Rank} ");
+            }
+            WriteLine(string.Empty);
+        }
+        
+        return new Vector2(_right - x, _top - _startTop);
+    }
+
+
     private void DrawTitle(int x, int y, GameState gameState)
     {
         Write($"Puzzle #{gameState.PuzzleId} - ");
@@ -61,32 +117,6 @@ public class InfoRenderer
         _left = _leftReturn;
     }
 
-    public Vector2 RenderInfo(int x, int y, GameState gameState)
-    {
-        _startTop = y;
-        _leftReturn = x;
-        _top = y;
-        _right = x;
-        _left = x;
-        DrawTitle(x, y, gameState);
-        WriteLine("W/A/S/D - Move Cursor");
-        WriteLine("Space - Select/Move");
-        WriteLine("N - Next Puzzle");
-        WriteLine("P - Previous Puzzle");
-        WriteLine("R - Reset Puzzle");
-        WriteLine("Y - Cheat");
-        WriteLine("ESC - Quit");
-        if (gameState.CheatedPuzzles.TryGetValue(gameState.PuzzleId, out SolverResult? solution))
-        {
-            Write($"Difficulty: {solution.Attempts} | ");
-            foreach ((Position from, Position to) in solution.Moves)
-            {
-                Write($"{from.File}{from.Rank}-{to.File}{to.Rank} ");
-            }
-            WriteLine(string.Empty);
-        }
-        
-        return new Vector2(_right - _leftReturn, _top - _startTop);
-    }
+    
 
 }
