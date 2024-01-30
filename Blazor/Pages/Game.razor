@@ -54,7 +54,7 @@
 else
 {
     <div id="loading">
-        <p>Loading puzzles...</p>
+        <p>Loading puzzle @CurrentLoad of 80</p>
     </div>
 }
 
@@ -124,6 +124,7 @@ else
 
 @code
 {
+    private int CurrentLoad = 1;
     private readonly string nbsp = "\u00A0";
     private GameState _gameState = default!;
     private Board Board => _gameState.CurrentPuzzle.Board;
@@ -167,6 +168,8 @@ else
         string[] data = new string[80];
         for (int ix = 1; ix <= 80; ix++)
         {
+            CurrentLoad = ix;
+            StateHasChanged();
             data[ix - 1] = await Http.GetStringAsync($"puzzles/{ix.ToString().PadLeft(2, '0')}.txt");
         }
         _gameState = new GameState(1, new ServerPuzzleLibrary(data));
