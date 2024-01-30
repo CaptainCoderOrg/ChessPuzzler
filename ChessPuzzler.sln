@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raylib", "Raylib\Raylib.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptainCoder.ChessPuzzler.Headless", "CaptainCoder.ChessPuzzler.Headless\CaptainCoder.ChessPuzzler.Headless.csproj", "{06A2553D-2A6D-497E-86C7-5952FE6AFF96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazor", "Blazor\Blazor.csproj", "{4EDA6450-9849-4153-B046-44CD01092C6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{06A2553D-2A6D-497E-86C7-5952FE6AFF96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06A2553D-2A6D-497E-86C7-5952FE6AFF96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06A2553D-2A6D-497E-86C7-5952FE6AFF96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EDA6450-9849-4153-B046-44CD01092C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EDA6450-9849-4153-B046-44CD01092C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EDA6450-9849-4153-B046-44CD01092C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EDA6450-9849-4153-B046-44CD01092C6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

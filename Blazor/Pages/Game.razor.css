@@ -1,0 +1,21 @@
+.tile {
+    border: 0;
+    font-size: 3em;
+    aspect-ratio: 1;
+    width: 2em;
+}
+.tile[data-tile-type="white"] {
+    background-color: #d3b083;
+}
+
+.tile[data-tile-type="black"] {
+    background-color: #4f4f4f;
+}
+
+.tile[data-tile-type="cursor"] {
+    background-color: #ffff00;
+}
+
+.tile[data-tile-type="selected"] {
+    background-color: #ffa100;
+}

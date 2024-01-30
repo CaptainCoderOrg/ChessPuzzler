@@ -1,0 +1,96 @@
+@using ChessPuzzler;
+@inject HttpClient Http
+
+<h1>Chess Puzzler</h1>
+
+@if (_gameState is not null)
+{
+    <div>
+        @foreach (int rank in Board.Ranks())
+        {
+            foreach (char file in Board.Files())
+            {
+                string label = "\u00A0";
+                if (Board.IsOccupied(rank, file))
+                {
+                    ChessPiece piece = Board.GetPiece(rank, file);
+                    label = PieceToString(piece);
+                }
+                <button 
+                    class="tile" 
+                    data-tile-type="@TileType(rank, file)"
+                    @onclick="() => HandleClick(rank, file)" >@label</button>
+            }
+            <br />
+        }
+    </div>
+
+    <div>
+    <button @onclick="() => _gameState.NextPuzzle(1)">Next Puzzle</button>
+    <button @onclick="() => _gameState.NextPuzzle(-1)">Previous Puzzle</button>
+    <button @onclick="() => _gameState.CurrentPuzzle.Reset()">Reset Puzzle</button>
+</div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+
+
+
+
+@code
+{
+    private GameState _gameState;
+    private Board Board => _gameState.CurrentPuzzle.Board;
+
+    protected override async Task OnInitializedAsync()
+    {
+        string[] data = new string[80];
+        for (int ix = 1; ix <= 80; ix++)
+        {
+            data[ix - 1] = await Http.GetStringAsync($"puzzles/{ix.ToString().PadLeft(2, '0')}.txt");
+        }
+        _gameState = new GameState(1, new ServerPuzzleLibrary(data));
+        await base.OnInitializedAsync();
+    }
+
+    private string TileType(int rank, char file)
+    {
+        Position position = new Position(rank, file);
+        if (_gameState.SelectedPosition == position)
+        {
+            return "selected";
+        }
+
+        if (_gameState.CursorPosition == position)
+        {
+            return "cursor";
+        }
+        
+        if ((rank + file) % 2 == 0) { return "white"; }
+        return "black";
+    }
+
+    private void HandleClick(int rank, char file){
+        _gameState.CursorPosition = new Position(rank, file);
+        _gameState.HandleSelect();
+    }
+
+
+    private string PieceToString(ChessPiece piece) 
+    {
+        return piece switch
+        {
+            ChessPiece.Pawn => "♟︎",
+            ChessPiece.Rook => "♜",
+            ChessPiece.Bishop => "♝",
+            ChessPiece.Knight => "♞",
+            ChessPiece.Queen => "♛",
+            ChessPiece.King => "♚",
+            _ => throw new Exception("YOU LOSE! YOU GET NOTHING!"),            
+        };
+    }
+
+}
