@@ -10,16 +10,25 @@
         {
             foreach (char file in Board.Files())
             {
-                string label = "\u00A0";
                 if (Board.IsOccupied(rank, file))
                 {
-                    ChessPiece piece = Board.GetPiece(rank, file);
-                    label = PieceToString(piece);
+                   <button 
+                        class="tile" 
+                        draggable="true"
+                        data-tile-type="@TileType(rank, file)"
+                        @ondragenter:preventDefault
+                        @ondragleave:preventDefault
+                        @ondragover:preventDefault
+                        @ondragstart="() => HandleDragStart(rank, file)"
+                        @ondragover="() => HandleDragOver()"
+                        @ondragend="() => HandleDragEnd()"
+                        @ondrop="() => HandleDrop(rank, file)"
+                        @onclick="() => HandleClick(rank, file)">
+                        @PieceToString(Board.GetPiece(rank, file))
+                    </button>
+                } else {
+                    <button class="tile" data-tile-type="@TileType(rank, file)">@nbsp</button>
                 }
-                <button 
-                    class="tile" 
-                    data-tile-type="@TileType(rank, file)"
-                    @onclick="() => HandleClick(rank, file)" >@label</button>
             }
             <br />
         }
@@ -42,8 +51,11 @@ else
 
 @code
 {
-    private GameState _gameState;
+    private readonly string nbsp = "\u00A0";
+    private GameState _gameState = default!;
     private Board Board => _gameState.CurrentPuzzle.Board;
+
+    private Position? dragFrom = null;
 
     protected override async Task OnInitializedAsync()
     {
@@ -68,9 +80,33 @@ else
         {
             return "cursor";
         }
-        
+
         if ((rank + file) % 2 == 0) { return "white"; }
         return "black";
+    }
+
+    private void HandleDragStart(int rank, char file){
+        dragFrom = new(rank, file);
+    }
+
+    private void HandleDragOver()
+    {
+    }
+
+    private void HandleDragEnd()
+    {
+        dragFrom = null;
+    }
+
+    private void HandleDrop(int rank, char file)
+    {
+        if (dragFrom is not null) {
+            _gameState.CursorPosition = (Position)dragFrom;
+            _gameState.HandleSelect();
+            _gameState.CursorPosition = new Position(rank, file);
+            _gameState.HandleSelect();
+        }
+        dragFrom = null;
     }
 
     private void HandleClick(int rank, char file){
