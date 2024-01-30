@@ -4,18 +4,21 @@
     aspect-ratio: 1;
     width: 2em;
 }
-.tile[data-tile-type="white"] {
+
+#chessboard .tile:nth-child(odd)
+{
     background-color: #d3b083;
 }
 
-.tile[data-tile-type="black"] {
+#chessboard .tile:nth-child(even)
+{
     background-color: #4f4f4f;
 }
 
-.tile[data-tile-type="cursor"] {
-    background-color: #ffff00;
+#chessboard .tile[selected] {
+    background-color: #ffa100;
 }
 
-.tile[data-tile-type="selected"] {
-    background-color: #ffa100;
+#chessboard .tile[cursor] {
+    background-color: #ffff00;
 }
