@@ -1,8 +1,58 @@
+h2 {
+    font-size: 1.25em;
+}
+
+a {
+    color: #5bc7fa
+}
+
+#loading
+{
+    text-align: center;
+}
+
+#title {
+    text-align: center;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+}
+
+#board {
+    border: 1px solid black;
+    padding: 0;
+    width: fit-content;
+}
+#info {
+    margin-left: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+#info button {
+    padding: .2em 1em;
+    border-radius: 1em;
+    margin: .2em 0;
+}
+
+#solution {
+    min-height: 2em;
+    margin-top: 1em;
+    text-align: center;
+}
+
+#instructions {
+    margin: 1em auto;
+    max-width: 800px;
+}
+
 .tile {
-    border: 0;
+    border: 1px solid black;
     font-size: 3em;
     aspect-ratio: 1;
-    width: 2em;
+    width: 1.5em;
 }
 .tile[data-tile-type="white"] {
     background-color: #d3b083;
@@ -12,10 +62,16 @@
     background-color: #4f4f4f;
 }
 
-.tile[data-tile-type="cursor"] {
-    background-color: #ffff00;
+.tile[data-tile-is-selected] {
+    background-color: #ffa100;
 }
 
-.tile[data-tile-type="selected"] {
-    background-color: #ffa100;
+#status[data-status="Solved"]
+{
+    color: #00ff00;
+}
+
+#status[data-status="Cheated"]
+{
+    color: yellow;
 }

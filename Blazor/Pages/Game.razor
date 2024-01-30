@@ -1,61 +1,166 @@
 @using ChessPuzzler;
+@using System.Text;
 @inject HttpClient Http
 
-<h1>Chess Puzzler</h1>
+<h1 id="title">Chess Puzzler</h1>
 
 @if (_gameState is not null)
 {
-    <div>
-        @foreach (int rank in Board.Ranks())
-        {
-            foreach (char file in Board.Files())
+    <div id="container">
+        <div id="board">
+            @foreach (int rank in Board.Ranks())
             {
-                if (Board.IsOccupied(rank, file))
+                foreach (char file in Board.Files())
                 {
-                   <button 
-                        class="tile" 
-                        draggable="true"
-                        data-tile-type="@TileType(rank, file)"
-                        @ondragenter:preventDefault
-                        @ondragleave:preventDefault
-                        @ondragover:preventDefault
-                        @ondragstart="() => HandleDragStart(rank, file)"
-                        @ondragover="() => HandleDragOver()"
-                        @ondragend="() => HandleDragEnd()"
-                        @ondrop="() => HandleDrop(rank, file)"
-                        @onclick="() => HandleClick(rank, file)">
-                        @PieceToString(Board.GetPiece(rank, file))
-                    </button>
-                } else {
-                    <button class="tile" data-tile-type="@TileType(rank, file)">@nbsp</button>
+                    if (Board.IsOccupied(rank, file))
+                    {
+                        <button class="tile" 
+                            draggable="true" 
+                            data-tile-type="@TileType(rank, file)"
+                            data-tile-is-selected="@IsSelected(rank, file)" 
+                            @ondragenter:preventDefault 
+                            @ondragleave:preventDefault
+                            @ondragover:preventDefault 
+                            @ondragstart="() => HandleDragStart(rank, file)"
+                            @ondragover="() => HandleDragOver()" 
+                            @ondragend="() => HandleDragEnd()"
+                            @ondrop="() => HandleDrop(rank, file)" 
+                            @onclick="() => HandleClick(rank, file)">
+                            @PieceToString(Board.GetPiece(rank, file))
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="tile" data-tile-type="@TileType(rank, file)">@nbsp</button>
+                    }
                 }
+                <br />
             }
-            <br />
-        }
-    </div>
+        </div>
 
-    <div>
-    <button @onclick="() => _gameState.NextPuzzle(1)">Next Puzzle</button>
-    <button @onclick="() => _gameState.NextPuzzle(-1)">Previous Puzzle</button>
-    <button @onclick="() => _gameState.CurrentPuzzle.Reset()">Reset Puzzle</button>
-</div>
+        <div id="info">
+            <h2>Puzzle #@_gameState.PuzzleId</h2>
+            <h2 id="status" data-status="@Status">@Status</h2>
+            <button @onclick="() => _gameState.NextPuzzle(1)">Next Puzzle</button>
+            <button @onclick="() => _gameState.NextPuzzle(-1)">Previous Puzzle</button>
+            <button @onclick="() => _gameState.CurrentPuzzle.Reset()">Reset Puzzle</button>
+            <button @onclick="() => _gameState.Cheat()">Cheat</button>
+        </div>
+    </div>
+    <div id="solution">
+        @CheaterSolution
+    </div>
 }
 else
 {
-    <p>Loading...</p>
+    <div id="loading">
+        <p>Loading puzzles...</p>
+    </div>
 }
 
+<div id="instructions">
+    <h2>Rules:</h2>
+    <ul>
+        <li>Move using normal chess rules</li>
+        <li>Each move must result in a capture</li>
+        <li>If only one piece remains on the board, you win!</li>
+    </ul>
+
+    <h2>About</h2> 
+    
+    <p>
+
+    Chess Puzzler is a chess puzzle game inspired by <a
+    href="https://www.thinkfun.com/products/brain-fitness-solitaire-chess/"
+    target="_blank">Solitaire Chess</a> and was created as a programming
+    exercise for my students. Special thanks to <a
+    href="https://www.twitch.tv/captain_onosa" target="_blank">Captain Onosa</a>
+    for inspiring me to create this project.
+    
+    </p>
+
+    <p>
+
+    The majority of this project was written live on stream. You can join us, ask
+    questions, and share your work daily: <a href="https://www.twitch.tv/thecaptaincoder" target="_blank">https://www.twitch.tv/thecaptaincoder</a>
+
+    </p>
+
+    <h2>Source Code</h2>
+
+    <p>
+
+    The source code is available on GitHub:
+    <a href="https://github.com/CaptainCoderOrg/ChessPuzzler" target="_blank">https://github.com/CaptainCoderOrg/ChessPuzzler</a>
+
+    </p>
+
+    <h2>Credits</h2>
+    <ul>
+    <li>
+
+        Chess Sprites created by Lucas312 and acquired via OpenGameArt:
+        <a href="https://opengameart.org/content/pixel-chess-pieces" target="_blank">https://opengameart.org/content/pixel-chess-pieces</a>
+
+    </li>
+
+    <li>
+
+        Drag and Drop feature implemented by <b>smabUK</b>
+
+    </li>
+
+    <li>
+
+        A huge thank you to everyone who backseat codes during my live streams.
+        I learn so much because of all of you.
+
+    </li>
+    </ul>
 
 
 
+</div>
 
 @code
 {
     private readonly string nbsp = "\u00A0";
     private GameState _gameState = default!;
     private Board Board => _gameState.CurrentPuzzle.Board;
-
     private Position? dragFrom = null;
+    private string Status 
+    {
+        get
+        {
+            if (_gameState is null) { return "Unsolved"; }
+            if(_gameState.CheatedPuzzles.ContainsKey(_gameState.PuzzleId))
+            {
+                return "Cheated";
+            }
+            if(_gameState.SolvedPuzzles.Contains(_gameState.PuzzleId))
+            {
+                return "Solved";
+            }
+            return "Unsolved";
+        }
+    }
+    private string? CheaterSolution
+    {
+        get
+        {
+            if(_gameState.CheatedPuzzles.TryGetValue(_gameState.PuzzleId, out SolverResult? solution))
+            {
+                StringBuilder builder = new();
+                builder.Append("Cheater: ");
+                foreach ((Position from, Position to) in solution.Moves)
+                {
+                    builder.Append($"{from.File}{from.Rank}-{to.File}{to.Rank} ");
+                }
+                return builder.ToString();
+            }
+            return null;
+        }
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -70,22 +175,14 @@ else
 
     private string TileType(int rank, char file)
     {
-        Position position = new Position(rank, file);
-        if (_gameState.SelectedPosition == position)
-        {
-            return "selected";
-        }
-
-        if (_gameState.CursorPosition == position)
-        {
-            return "cursor";
-        }
-
         if ((rank + file) % 2 == 0) { return "white"; }
         return "black";
     }
 
-    private void HandleDragStart(int rank, char file){
+    private bool IsSelected(int rank, char file) => _gameState.SelectedPosition == new Position(rank, file);
+
+    private void HandleDragStart(int rank, char file)
+    {
         dragFrom = new(rank, file);
     }
 
@@ -100,7 +197,8 @@ else
 
     private void HandleDrop(int rank, char file)
     {
-        if (dragFrom is not null) {
+        if (dragFrom is not null)
+        {
             _gameState.CursorPosition = (Position)dragFrom;
             _gameState.HandleSelect();
             _gameState.CursorPosition = new Position(rank, file);
@@ -109,13 +207,14 @@ else
         dragFrom = null;
     }
 
-    private void HandleClick(int rank, char file){
+    private void HandleClick(int rank, char file)
+    {
         _gameState.CursorPosition = new Position(rank, file);
         _gameState.HandleSelect();
     }
 
 
-    private string PieceToString(ChessPiece piece) 
+    private string PieceToString(ChessPiece piece)
     {
         return piece switch
         {
@@ -125,7 +224,7 @@ else
             ChessPiece.Knight => "♞",
             ChessPiece.Queen => "♛",
             ChessPiece.King => "♚",
-            _ => throw new Exception("YOU LOSE! YOU GET NOTHING!"),            
+            _ => throw new Exception("YOU LOSE! YOU GET NOTHING!"),
         };
     }
 
