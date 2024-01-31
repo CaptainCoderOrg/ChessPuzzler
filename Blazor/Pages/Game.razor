@@ -15,9 +15,8 @@
                     if (Board.IsOccupied(rank, file))
                     {
                         <button class="tile" 
-                            draggable="true" 
-                            data-tile-type="@TileType(rank, file)"
-                            data-tile-is-selected="@IsSelected(rank, file)" 
+                            draggable="true"
+                            selected="@IsSelected(rank, file)"
                             @ondragenter:preventDefault 
                             @ondragleave:preventDefault
                             @ondragover:preventDefault 
@@ -31,7 +30,7 @@
                     }
                     else
                     {
-                        <button class="tile" data-tile-type="@TileType(rank, file)">@nbsp</button>
+                        <button class="tile">@nbsp</button>
                     }
                 }
                 <br />
@@ -176,12 +175,6 @@ else
         await base.OnInitializedAsync();
     }
 
-    private string TileType(int rank, char file)
-    {
-        if ((rank + file) % 2 == 0) { return "white"; }
-        return "black";
-    }
-
     private bool IsSelected(int rank, char file) => _gameState.SelectedPosition == new Position(rank, file);
 
     private void HandleDragStart(int rank, char file)
@@ -221,12 +214,12 @@ else
     {
         return piece switch
         {
-            ChessPiece.Pawn => "♟︎",
-            ChessPiece.Rook => "♜",
+            ChessPiece.Pawn   => "♟︎",
+            ChessPiece.Rook   => "♜",
             ChessPiece.Bishop => "♝",
             ChessPiece.Knight => "♞",
-            ChessPiece.Queen => "♛",
-            ChessPiece.King => "♚",
+            ChessPiece.Queen  => "♛",
+            ChessPiece.King   => "♚",
             _ => throw new Exception("YOU LOSE! YOU GET NOTHING!"),
         };
     }
