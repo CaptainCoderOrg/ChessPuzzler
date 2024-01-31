@@ -1,0 +1,14 @@
+<Project Sdk="Godot.NET.Sdk/4.2.1">
+  <ItemGroup>
+    <ProjectReference Include="..\CaptainCoder.ChessPuzzler.Logic\CaptainCoder.ChessPuzzler.Logic.csproj" />
+    <ProjectReference Include="..\CaptainCoder.ChessPuzzler.Headless\CaptainCoder.ChessPuzzler.Headless.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net7.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>GodotChessPuzzler</RootNamespace>
+    <LangVersion>12</LangVersion>
+  </PropertyGroup>
+</Project>

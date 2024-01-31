@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Godot Chess Puzzler", "Godot Chess Puzzler.csproj", "{333F2F4A-7A48-4D5F-AA69-5476A6D4FDC4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{333F2F4A-7A48-4D5F-AA69-5476A6D4FDC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{333F2F4A-7A48-4D5F-AA69-5476A6D4FDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{333F2F4A-7A48-4D5F-AA69-5476A6D4FDC4}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{333F2F4A-7A48-4D5F-AA69-5476A6D4FDC4}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{333F2F4A-7A48-4D5F-AA69-5476A6D4FDC4}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{333F2F4A-7A48-4D5F-AA69-5476A6D4FDC4}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

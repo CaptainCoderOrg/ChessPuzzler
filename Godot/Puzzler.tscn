@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbhk71hywjksn"]
+
+[ext_resource type="Script" path="res://BoardRenderer.cs" id="2_jkclc"]
+
+[sub_resource type="Theme" id="Theme_62s4g"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Board" type="Node2D" parent="." node_paths=PackedStringArray("PuzzleLabel", "StatusLabel", "TextContainer")]
+script = ExtResource("2_jkclc")
+PuzzleLabel = NodePath("../VBoxContainer/Puzzle Label")
+StatusLabel = NodePath("../VBoxContainer/Status Label")
+TextContainer = NodePath("../VBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Puzzle Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_62s4g")
+theme_override_font_sizes/font_size = 32
+text = "Puzzle #1"
+
+[node name="Status Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_62s4g")
+theme_override_font_sizes/font_size = 32
+text = "Unsolved"
+
+[node name="Instructions" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_62s4g")
+theme_override_font_sizes/font_size = 32
+text = "WASD / Space
+N - Next Puzzle
+P - Prev Puzzle
+R - Reset Puzzle
+ESC - Exit"
