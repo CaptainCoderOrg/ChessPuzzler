@@ -54,15 +54,15 @@ a {
     aspect-ratio: 1;
     width: 1.5em;
 }
-.tile[data-tile-type="white"] {
+#board .tile:nth-child(odd) {
     background-color: #d3b083;
 }
 
-.tile[data-tile-type="black"] {
+#board .tile:nth-child(even) {
     background-color: #4f4f4f;
 }
 
-.tile[data-tile-is-selected] {
+#board .tile[selected] {
     background-color: #ffa100;
 }
 
